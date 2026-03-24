@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Decriiipt Copilot — Prototype accessible</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Aller au contenu principal</a>
+
+    <header class="site-header" role="banner">
+      <div>
+        <p class="eyebrow">intuiti.net</p>
+        <h1>Decriiipt Copilot</h1>
+        <p class="subtitle">Prototype d’interface de discussion accessible</p>
+      </div>
+      <button id="toggle-help" class="secondary-btn" aria-expanded="false" aria-controls="help-panel">
+        Afficher l’aide clavier
+      </button>
+    </header>
+
+    <div class="layout">
+      <aside class="side-panel" aria-label="Paramètres de conversation">
+        <h2>Paramètres</h2>
+
+        <form id="settings-form">
+          <fieldset>
+            <legend>Mode de travail</legend>
+            <div class="stack">
+              <label for="mode-select">Choisir un mode</label>
+              <select id="mode-select" name="mode">
+                <option value="veille">Veille</option>
+                <option value="redaction">Rédaction</option>
+                <option value="conseil">Conseil</option>
+              </select>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Niveau de détail</legend>
+            <div class="radio-group" role="radiogroup" aria-label="Niveau de détail">
+              <label><input type="radio" name="detail" value="executif" checked /> Exécutif</label>
+              <label><input type="radio" name="detail" value="expert" /> Expert</label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Options de réponse</legend>
+            <label><input type="checkbox" id="include-sources" checked /> Inclure les sources</label>
+            <label><input type="checkbox" id="include-confidence" checked /> Inclure le niveau de confiance</label>
+          </fieldset>
+        </form>
+
+        <section aria-labelledby="quick-actions-title">
+          <h3 id="quick-actions-title">Actions rapides</h3>
+          <div class="stack">
+            <button class="secondary-btn quick-action" data-prompt="Donne-moi les 5 signaux marketing IA de la semaine, classés par impact agence.">
+              Top signaux de la semaine
+            </button>
+            <button class="secondary-btn quick-action" data-prompt="Transforme ces insights en plan de newsletter Decriiipt prêt à relire.">
+              Générer plan newsletter
+            </button>
+            <button class="secondary-btn quick-action" data-prompt="Propose des quick wins marketing sur 30 jours pour un client B2B SaaS.">
+              Reco 30 jours
+            </button>
+          </div>
+        </section>
+      </aside>
+
+      <main id="main-content" class="chat-panel" role="main">
+        <section id="help-panel" class="help-panel" hidden>
+          <h2>Aide clavier</h2>
+          <ul>
+            <li><kbd>Tab</kbd> pour naviguer entre les zones.</li>
+            <li><kbd>Entrée</kbd> pour envoyer un message.</li>
+            <li><kbd>Ctrl</kbd> + <kbd>Entrée</kbd> pour insérer une nouvelle ligne.</li>
+          </ul>
+        </section>
+
+        <section class="chat-card" aria-labelledby="conversation-title">
+          <div class="chat-head">
+            <h2 id="conversation-title">Conversation</h2>
+            <p id="session-meta" class="meta">Mode: Veille · Détail: Exécutif</p>
+          </div>
+
+          <ol id="messages" class="messages" aria-live="polite" aria-relevant="additions text">
+            <li class="message assistant">
+              <p>
+                Bonjour 👋 Je suis Decriiipt Copilot. Pose une question marketing/IA, je réponds avec
+                recommandations actionnables.
+              </p>
+            </li>
+          </ol>
+
+          <form id="composer" class="composer" aria-label="Composer un message">
+            <label for="prompt" class="label-strong">Votre demande</label>
+            <textarea
+              id="prompt"
+              name="prompt"
+              rows="4"
+              placeholder="Ex. Résume les 3 tendances IA marketing de cette semaine et propose 2 actions pour intuiti.net"
+              required
+            ></textarea>
+            <div class="composer-actions">
+              <p class="hint" id="hint">Astuce: Entrée envoie · Ctrl+Entrée fait un saut de ligne</p>
+              <button type="submit" class="primary-btn">Envoyer</button>
+            </div>
+          </form>
+        </section>
+
+        <section class="insights-card" aria-labelledby="insights-title">
+          <h2 id="insights-title">Sources & confiance</h2>
+          <div id="insights" class="insights" role="status" aria-live="polite">
+            <p>Aucune réponse pour le moment.</p>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
