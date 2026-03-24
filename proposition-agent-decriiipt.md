@@ -141,3 +141,115 @@ Lancer un **atelier de cadrage de 90 minutes** avec l’équipe intuiti.net pour
 - le niveau d’autonomie autorisé de l’agent.
 
 Livrable de l’atelier : backlog priorisé + architecture cible + planning 8 semaines.
+
+---
+
+## 10) Architecture cible (proposition v1)
+
+### Vue d’ensemble (logique)
+1. **Interface chat (Web)**
+   - point d’entrée utilisateur (équipe interne puis clients),
+   - gestion des sessions, rôles, historique.
+
+2. **API d’orchestration (Agent Core)**
+   - reçoit les messages,
+   - applique les règles de personnalité Decriiipt,
+   - route vers les bons modules (veille, rédaction, conseil).
+
+3. **Moteur de compétences (Tools & Workflows)**
+   - connecteurs de sources,
+   - templates éditoriaux,
+   - fonctions d’analyse / scoring / transformation multi-format.
+
+4. **Couche connaissance (RAG + mémoire)**
+   - base documentaire (archives Decriiipt, notes internes, playbooks),
+   - index sémantique pour la recherche contextuelle,
+   - mémoire conversationnelle courte et longue.
+
+5. **Couche gouvernance (Quality & Safety)**
+   - validation des sources,
+   - policy de publication,
+   - observabilité et audit des réponses.
+
+---
+
+## 11) Flux principal d’une requête
+
+1. L’utilisateur choisit un mode (**Veille / Rédaction / Conseil**).
+2. L’API d’orchestration identifie l’intention et le niveau de profondeur attendu.
+3. Le module RAG récupère les éléments pertinents (sources internes + externes autorisées).
+4. L’agent produit une réponse structurée avec:
+   - synthèse,
+   - recommandations,
+   - niveau de confiance,
+   - sources.
+5. Si contenu publiable demandé: passage par un workflow de validation (humain-in-the-loop).
+6. La réponse finale est stockée (historique + analytics d’usage).
+
+---
+
+## 12) Découpage des composants techniques
+
+### A. Front-end conversationnel
+- Authentification (SSO ou compte interne).
+- Historique des conversations.
+- Actions rapides: “résumer”, “transformer en post”, “rendre publiable”.
+
+### B. Back-end Agent Core
+- Gestion des prompts système (persona Decriiipt).
+- Router d’intentions vers compétences.
+- Contrôle du coût et du temps de réponse.
+
+### C. Services métiers
+- **Service Veille**: collecte, déduplication, scoring impact/fiabilité.
+- **Service Éditorial**: génération newsletter, variantes de titres, CTA.
+- **Service Conseil**: recommandations par secteur + plan d’action KPI.
+
+### D. Données
+- Stockage documents (source-of-truth).
+- Base vectorielle (recherche sémantique).
+- Base relationnelle (users, sessions, logs, feedback).
+
+### E. Observabilité
+- Traces de prompts/réponses.
+- Métriques clés: latence, taux de correction humaine, taux de réutilisation.
+- Journal d’audit pour gouvernance et conformité.
+
+---
+
+## 13) Choix d’architecture recommandés (MVP)
+
+- **Pattern**: monolithe modulaire au départ (plus simple à opérer), puis extraction de services si charge croissante.
+- **RAG first**: priorité à la qualité des sources internes avant d’élargir l’autonomie.
+- **Human-in-the-loop**: obligatoire pour toute sortie externe au début.
+- **Feature flags**: activation progressive des compétences pour réduire le risque.
+
+---
+
+## 14) Sécurité, conformité, gouvernance
+
+- Contrôle d’accès par rôles (interne, éditeur, admin, client).
+- Chiffrement des données au repos et en transit.
+- Rétention configurable des conversations.
+- Masquage des données sensibles dans les logs.
+- Politique claire sur l’usage des données clients dans l’apprentissage.
+
+---
+
+## 15) Plan de mise en œuvre architecture (8 semaines)
+
+### S1–S2
+- Cadrage technique + schéma d’architecture validé.
+- Setup du socle (auth, API, stockage docs, vector store).
+
+### S3–S4
+- Implémentation des modes Veille/Rédaction/Conseil.
+- Intégration des templates éditoriaux.
+
+### S5–S6
+- Qualité: scoring des sources, niveau de confiance, observabilité.
+- Workflow de validation éditoriale.
+
+### S7–S8
+- Hardening sécurité/performance.
+- Pilote utilisateurs + boucle de feedback + priorisation v2.
