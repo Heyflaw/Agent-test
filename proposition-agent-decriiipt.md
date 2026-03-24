@@ -266,3 +266,12 @@ Un prototype front statique est disponible dans `front/` avec:
 
 ### Lancement local
 Ouvrir `front/index.html` dans un navigateur pour tester le prototype.
+
+---
+
+## 17) Documentation d’installation et mise en ligne
+
+Un guide opérationnel est disponible dans `GUIDE_INSTALLATION_DEPLOIEMENT.md` pour:
+- installation locale du prototype,
+- déploiement front statique (Netlify / Vercel / Cloudflare Pages),
+- trajectoire vers une mise en ligne complète (front + API + RAG + gouvernance).
