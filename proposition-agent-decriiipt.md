@@ -253,3 +253,16 @@ Livrable de l’atelier : backlog priorisé + architecture cible + planning 8 se
 ### S7–S8
 - Hardening sécurité/performance.
 - Pilote utilisateurs + boucle de feedback + priorisation v2.
+
+---
+
+## 16) Prototype front accessible livré
+
+Un prototype front statique est disponible dans `front/` avec:
+- structure sémantique (header/main/aside, labels, landmarks),
+- navigation clavier (skip link, focus visible, raccourcis),
+- zones ARIA live pour le flux conversationnel,
+- design responsive et support `prefers-reduced-motion`.
+
+### Lancement local
+Ouvrir `front/index.html` dans un navigateur pour tester le prototype.
